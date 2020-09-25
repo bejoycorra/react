@@ -1,0 +1,191 @@
+@import '~@corratech/common-styles/src/_common_mixins.less';
+
+@tab_pane_color: #fff;
+@tab_nav-item-inactive-color: #f6f6f6;
+@tab_nav-item-color: @tab_pane_color;
+@tab_border-color: #eaeaea;
+@myaccount-return-status-badge__border-radius: 3px;
+@myaccount-return-status-badge__margin: 3px 10px 0;
+@myaccount-return-status-badge__padding: 0 10px;
+@myaccount-return-status-badge__font-size: 14px;
+@myaccount-return-status-badge__line-height: 1.42857143;
+@myaccount-return-date__font-size: 16px;
+@myaccount-return-date__margin: -14px 0 18px;
+@myaccount-return-detail-table__font-size: 14px;
+@myaccount-return-detail-table__line-height: 1.42857143;
+@myaccount-return-detail-table-td__background-color: #f6f6f6;
+@myaccount-return-detail-table__margin-bottom: 30px;
+@myaccount-return-information-tiles__margin-bottom: 20px;
+@myaccount-return-table-th__padding-right: 10px;
+@myaccount-returned-item-return__font-size: 14px;
+
+.ordered-items {
+    width: @full-width;
+    font-size: @myaccount-return-detail-table__font-size;
+    line-height: @myaccount-return-detail-table__line-height;
+    margin-bottom: @myaccount-return-detail-table__margin-bottom;
+
+    tbody {
+        tr {
+            &:nth-child(even) {
+                td {
+                    background-color: @myaccount-return-detail-table-td__background-color;
+                }
+            }
+        }
+    }
+
+    thead th {
+        border-bottom: 1px solid @tab_border-color;
+    }
+
+    th,
+    td {
+        vertical-align: top;
+        padding: 16px 10px 11px;
+    }
+
+    tfoot {
+        tr {
+            &:not(.grand_total) {
+                th {
+                    font-weight: @font-500;
+                }
+            }
+            &.grand_total {
+                th,
+                td {
+                    font-weight: @font-700;
+                    border-bottom: 1px solid @tab_border-color;
+                }
+            }
+        }
+    }
+}
+
+.return-information__tiles {
+    margin-bottom: @myaccount-return-information-tiles__margin-bottom;
+}
+
+.return-details-contianer {
+    .status-badge {
+        border: 2px solid @color__whitegray;
+        border-radius: @myaccount-return-status-badge__border-radius;
+        display: inline-block;
+        vertical-align: top;
+        margin: @myaccount-return-status-badge__margin;
+        text-transform: @uppercase;
+        padding: @myaccount-return-status-badge__padding;
+        font-size: @myaccount-return-status-badge__font-size;
+        font-weight: @font-500;
+        line-height: @myaccount-return-status-badge__line-height;
+    }
+    .return-date {
+        font-size: @myaccount-return-date__font-size;
+        margin: @myaccount-return-date__margin;
+    }
+}
+
+.item-options {
+    margin-top: 10px;
+}
+
+.orderd-item-head {
+    & h3 {
+        display: flex;
+        justify-content: space-between;
+
+        > a {
+            font-size: 14px;
+        }
+    }
+}
+
+.myaccount-wrap {
+    .myaccount-content {
+        .returned-items-container {
+            .returned-item-head {
+                h3 {
+                    > a {
+                        font-size: @myaccount-returned-item-return__font-size;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// mobile
+@media (@max: @screen_m) {
+    .ordered-items {
+        thead {
+            tr th {
+                display: none;
+            }
+        }
+        &,
+        tbody,
+        tbody tr,
+        tbody tr td,
+        tfoot,
+        tfoot tr {
+            display: block;
+            border: none;
+        }
+        tbody tr td {
+            &:before {
+                padding-right: @myaccount-return-table-th__padding-right;
+                content: attr(data-th) ': ';
+                font-weight: @font-700;
+            }
+            &:last-child {
+                border-bottom: 1px solid @color__whitegray;
+            }
+            &.qty {
+                ul {
+                    display: inline-block;
+                    vertical-align: top;
+                }
+            }
+        }
+        tbody tr td,
+        tfoot tr th,
+        tfoot tr td {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        tfoot tr {
+            overflow: hidden;
+            th {
+                float: left;
+                width: 70%;
+            }
+            td {
+                float: left;
+                width: 30%;
+                text-align: right;
+            }
+        }
+    }
+}
+// tablet & desktop
+@media (@min: @screen_t) {
+    .return-information__block {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-column-gap: 10px;
+    }
+    .ordered-items {
+        th,
+        td {
+            &.price,
+            &.qty,
+            &.subtotal {
+                text-align: right;
+            }
+        }
+        tfoot {
+            text-align: right;
+        }
+    }
+}

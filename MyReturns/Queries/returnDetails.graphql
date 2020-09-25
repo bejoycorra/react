@@ -1,0 +1,13 @@
+query returnDetails($id: Int!) {
+    returnDetails(id: $id) {
+        entity_id
+        increment_id
+        status
+        order_increment_id
+        order_id
+        date_requested
+        return_address
+        customer_email
+        customer_custom_email
+    }
+}

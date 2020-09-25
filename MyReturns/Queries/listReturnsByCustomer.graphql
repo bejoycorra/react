@@ -1,0 +1,12 @@
+query listReturnsByCustomer($pageSize: Int, $currentPage: Int) {
+    listReturnsByCustomer(pageSize: $pageSize, currentPage: $currentPage) {
+        total_count
+        returns_by_customer {
+            id
+            increment_id
+            ship_from
+            date_requested
+            status
+        }
+    }
+}
