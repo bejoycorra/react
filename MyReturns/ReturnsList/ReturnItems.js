@@ -4,9 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import dateFormat from 'dateformat';
 import { getCurrencySymbol } from '../../util/getCurrencySymbol';
-import { setPriceZeroes } from '../../util/setPriceZeroes';
 import { Button } from 'react-bootstrap';
-import { OrdersList } from './ReturnsList';
 
 export const ReturnItems = props => {
     const {
