@@ -7,8 +7,10 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LoaderStore, useGlobalOptions } from '@corratech/context-provider';
 import { ReturnInformation } from './ReturnInformation';
+import { ItemsReturned } from './ItemsReturned';
 import './ReturnDetailsPage.less';
 import { bool } from 'prop-types';
+import {Tab} from "react-bootstrap";
 
 export const ReturnsDetailsPage = props => {
     const { returnId } = useParams();
@@ -43,13 +45,17 @@ export const ReturnsDetailsPage = props => {
                         {t(`Return # ${returnData.increment_id}`)}
                         <span className="status-badge">{returnData.status}</span>
                     </h1>
-
                     <div className="return-data-tab my-account__block">
                         <ReturnInformation
                             returnData={returnData}
                         />
                     </div>
-
+                    <div>
+                        <ItemsReturned
+                            itemData = {returnData}
+                            returnItemsTitle = {'Items Return Requested For'}
+                        />
+                    </div>
                 </div>
             )}
         </Fragment>
