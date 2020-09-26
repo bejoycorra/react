@@ -8,9 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { LoaderStore, useGlobalOptions } from '@corratech/context-provider';
 import { ReturnInformation } from './ReturnInformation';
 import { ItemsReturned } from './ItemsReturned';
+import {ReturnComments} from './ReturnComments';
 import './ReturnDetailsPage.less';
 import { bool } from 'prop-types';
-import {Tab} from "react-bootstrap";
 
 export const ReturnsDetailsPage = props => {
     const { returnId } = useParams();
@@ -54,6 +54,12 @@ export const ReturnsDetailsPage = props => {
                         <ItemsReturned
                             itemData = {returnData}
                             returnItemsTitle = {'Items Return Requested For'}
+                        />
+                    </div>
+                    <div>
+                        <ReturnComments
+                            itemData = {returnData}
+                            returnCommentsTitle = {'Comments'}
                         />
                     </div>
                 </div>
