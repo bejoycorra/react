@@ -17,12 +17,12 @@ export const ReturnComments = props => {
             returncomments.map((comment, key) => (
                 <div key={key}>
                     <div className="col comment">
-                        {comment.is_admin 
+                        {comment.is_admin
                             ? t('Customer Service ')
                             : t('customer name ')
                         }
                         {comment.created_at}
-                     <div>   {comment.comment} </div>
+                        <div>   {comment.comment} </div>
                     </div>
                 </div>
             )),
@@ -30,14 +30,14 @@ export const ReturnComments = props => {
     );
     const [saveComment] = useMutation(
         submitReturnComment,
-          {
+        {
             onCompleted: res => {
                 debugger
                 console.log('comment'+res.addRmaComment.comments);
                 setReturncomments(res.addRmaComment.comments);
             }
-          }
-        );
+        }
+    );
     const saveReturnComment = async (comment) => {
         await saveComment({
             variables: {
@@ -53,40 +53,40 @@ export const ReturnComments = props => {
         }
 
     };
-const submitReturnComments = (
-    <form onSubmit={submitForm}>
-        <Field
-            label={t(props.commentFieldLabel)}
-            labelText={props.commentFieldLabelText}
-        >
-            <TextInput
-                type={'text'}
-                autoFocus
-                field="comment"
-                id="comment"
-                validate={combine([
-                    {
-                        fn: isRequired,
-                        text: t(props.requiredText)
+    const submitReturnComments = (
+        <form onSubmit={submitForm}>
+            <Field
+                label={t(props.commentFieldLabel)}
+                labelText={props.commentFieldLabelText}
+            >
+                <TextInput
+                    type={'text'}
+                    autoFocus
+                    field="comment"
+                    id="comment"
+                    validate={combine([
+                        {
+                            fn: isRequired,
+                            text: t(props.requiredText)
+                        }
+                    ])}
+                    placeholder={t(props.commentFieldPlaceholder)}
+                    initialValue={''}
+                    validateOnBlur
+                    onChange={event =>
+                        setComment(event.target.value)
                     }
-                ])}
-                placeholder={t(props.commentFieldPlaceholder)}
-                initialValue={''}
-                validateOnBlur
-                onChange={event =>
-                    setComment(event.target.value)
-                }
-            />
-        </Field>
-        <Button
-            size="lg"
-            variant="primary"
-            type="submit"
-        >
-            {t(props.submitButtonText)}
-        </Button>
-    </form>
-);
+                />
+            </Field>
+            <Button
+                size="lg"
+                variant="primary"
+                type="submit"
+            >
+                {t(props.submitButtonText)}
+            </Button>
+        </form>
+    );
     return (
         <div className="return-comments-container">
             <div>{t(returnCommentsTitle)}</div>

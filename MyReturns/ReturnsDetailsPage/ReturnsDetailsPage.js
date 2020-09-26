@@ -35,7 +35,7 @@ export const ReturnsDetailsPage = props => {
     if (loading ) return <LoadingIndicator />;
 
     if (error) return `${t('Error: Something went wrong!')}`;
-    
+
     const returnData = data.returnDetails;
     return (
         <Fragment>
