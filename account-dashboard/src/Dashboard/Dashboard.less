@@ -1,0 +1,50 @@
+// dashboard landing css variables
+@account-nav-wrapper__min-height: 400px;
+@account-dashboard-newsletter-block__min-height: 35px;
+
+@media (@max: @screen_m) {
+    .myaccount-wrap
+        .myaccount-content
+        .default-address-container
+        .dashboard-block.address-list:first-child {
+        margin-bottom: 30px;
+    }
+}
+//tablet & desktop
+@media (@min: @screen_m) {
+}
+//tablet & desktop
+@media (@min: @screen_t) {
+    .myaccount-wrap {
+        min-height: @account-nav-wrapper__min-height;
+        .name-form .name-form-links a:first-child {
+            button {
+                padding: 0;
+                margin: 0;
+            }
+        }
+        .myaccount-content {
+            .dashboard-block {
+                width: 100%;
+                float: left;
+                max-width: 50%;
+                &.address-list {
+                    max-width: 98%;
+                }
+                &:nth-child(even) {
+                    clear: left;
+                }
+                &:nth-child(4),
+                &:nth-child(5) {
+                    max-width: 100%;
+                }
+                .dashboard-newsletter-block {
+                    min-height: @account-dashboard-newsletter-block__min-height;
+                }
+                .manage-address-button {
+                    float: none;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,294 @@
+@import '~@corratech/common-styles/src/_common_mixins.less';
+
+@tab_pane_color: #fff;
+@tab_nav-item-inactive-color: #f6f6f6;
+@tab_nav-item-color: @tab_pane_color;
+@tab_border-color: #eaeaea;
+@myaccount-order-status-badge__border-radius: 3px;
+@myaccount-order-status-badge__margin: 3px 10px 0;
+@myaccount-order-status-badge__padding: 0 10px;
+@myaccount-order-status-badge__font-size: 14px;
+@myaccount-order-status-badge__line-height: 1.42857143;
+@myaccount-order-date__font-size: 16px;
+@myaccount-order-date__margin: -14px 0 18px;
+@myaccount-order-tab-content__padding: 25px;
+@myaccount-order-tab-content__margin-top: -1px;
+@myaccount-order-tab-nav-item__font-size: 14px;
+@myaccount-order-tab-nav-item__line-height: 40px;
+@myaccount-order-tab-nav-item__padding: 1px 35px 2px 35px;
+@myaccount-order-tab-nav-item__padding-mob: 2px 12px;
+@myaccount-order-detail-table__font-size: 14px;
+@myaccount-order-detail-table__line-height: 1.42857143;
+@myaccount-order-detail-table-td__background-color: #f6f6f6;
+@myaccount-order-detail-table__margin-bottom: 30px;
+@myaccount-order-action__font-size: 14px;
+@myaccount-order-action__margin-bottom: 25px;
+@myaccount-order-action__margin-right: 35px;
+@myaccount-order-information-tiles__margin-bottom: 20px;
+@myaccount-order-table-th__padding-right: 10px;
+@myaccount-order-tracking-sequence-padding-bottom: 15px;
+@myaccount-credit-card-info__margin-top: 10px;
+@myaccount-tracking-modal__max-width: 700px;
+@myaccount-tracking-order__font-size: 14px;
+@myaccount-order-actions-toolbar__margin-bottom: 25px;
+
+.tab-content {
+    border: 1px solid @tab_border-color;
+    margin-top: @myaccount-order-tab-content__margin-top;
+    padding: @myaccount-order-tab-content__padding;
+
+    & .tab-pane {
+        display: none;
+        background: @tab_pane_color;
+
+        &.active {
+            display: block;
+        }
+    }
+}
+
+.nav-tabs {
+    & a.nav-item {
+        padding: @myaccount-order-tab-nav-item__padding;
+        display: inline-block;
+        vertical-align: top;
+        color: inherit;
+        line-height: @myaccount-order-tab-nav-item__line-height;
+        font-size: @myaccount-order-tab-nav-item__font-size;
+        background: @tab_nav-item-inactive-color;
+
+        &.active {
+            border: 1px solid @tab_border-color;
+            border-bottom: 0;
+            background: @tab_nav-item-color;
+        }
+    }
+}
+
+.ordered-items {
+    width: @full-width;
+    font-size: @myaccount-order-detail-table__font-size;
+    line-height: @myaccount-order-detail-table__line-height;
+    margin-bottom: @myaccount-order-detail-table__margin-bottom;
+
+    tbody {
+        tr {
+            &:nth-child(even) {
+                td {
+                    background-color: @myaccount-order-detail-table-td__background-color;
+                }
+            }
+        }
+    }
+
+    thead th {
+        border-bottom: 1px solid @tab_border-color;
+    }
+
+    th,
+    td {
+        vertical-align: top;
+        padding: 16px 10px 11px;
+    }
+
+    tfoot {
+        tr {
+            &:not(.grand_total) {
+                th {
+                    font-weight: @font-500;
+                }
+            }
+            &.grand_total {
+                th,
+                td {
+                    font-weight: @font-700;
+                    border-bottom: 1px solid @tab_border-color;
+                }
+            }
+        }
+    }
+}
+
+.order-information__tiles {
+    margin-bottom: @myaccount-order-information-tiles__margin-bottom;
+}
+
+.order-details-contianer {
+    .status-badge {
+        border: 2px solid @color__whitegray;
+        border-radius: @myaccount-order-status-badge__border-radius;
+        display: inline-block;
+        vertical-align: top;
+        margin: @myaccount-order-status-badge__margin;
+        text-transform: @uppercase;
+        padding: @myaccount-order-status-badge__padding;
+        font-size: @myaccount-order-status-badge__font-size;
+        font-weight: @font-500;
+        line-height: @myaccount-order-status-badge__line-height;
+    }
+    .order-date {
+        font-size: @myaccount-order-date__font-size;
+        margin: @myaccount-order-date__margin;
+    }
+    .order-action-toolbar {
+        margin-bottom: @myaccount-order-action__margin-bottom;
+        overflow: hidden;
+        font-size: @myaccount-order-action__font-size;
+        .reorder-order-link {
+            margin-right: @myaccount-order-action__margin-right;
+        }
+        .print-order-link {
+            float: right;
+        }
+    }
+}
+
+.item-options {
+    margin-top: 10px;
+}
+
+.orderd-item-head {
+    & h3 {
+        display: flex;
+        justify-content: space-between;
+
+        > a {
+            font-size: 14px;
+        }
+    }
+}
+
+.shipment-tracking-modal {
+    max-width: @myaccount-tracking-modal__max-width;
+
+    & table {
+        width: 100%;
+        margin-bottom: 15px;
+
+        & td,
+        th {
+            padding: 5px 10px;
+            border: 1px solid @tab_border-color;
+        }
+    }
+}
+
+.shipment-tracking-number-seq {
+    padding-bottom: @myaccount-order-tracking-sequence-padding-bottom;
+    border-bottom: 1px solid @tab_border-color;
+}
+
+.credit-card-info {
+    width: 100%;
+    margin-top: @myaccount-credit-card-info__margin-top;
+
+    & td,
+    th {
+        border-top: 1px solid @tab_border-color;
+        padding: 5px;
+    }
+}
+
+.myaccount-wrap {
+    .myaccount-content {
+        .orderd-items-container {
+            .orderd-item-head {
+                h3 {
+                    > a {
+                        font-size: @myaccount-tracking-order__font-size;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.order-actions-toolbar {
+    margin-bottom: @myaccount-order-actions-toolbar__margin-bottom;
+
+    .actions {
+        #flex();
+        #justify-content(space-between);
+    }
+}
+
+// mobile
+@media (@max: @screen_m) {
+    .nav-tabs {
+        display: flex;
+        a.nav-item {
+            padding: @myaccount-order-tab-nav-item__padding-mob;
+        }
+    }
+    .ordered-items {
+        thead {
+            tr th {
+                display: none;
+            }
+        }
+        &,
+        tbody,
+        tbody tr,
+        tbody tr td,
+        tfoot,
+        tfoot tr {
+            display: block;
+            border: none;
+        }
+        tbody tr td {
+            &:before {
+                padding-right: @myaccount-order-table-th__padding-right;
+                content: attr(data-th) ': ';
+                font-weight: @font-700;
+            }
+            &:last-child {
+                border-bottom: 1px solid @color__whitegray;
+            }
+            &.qty {
+                ul {
+                    display: inline-block;
+                    vertical-align: top;
+                }
+            }
+        }
+        tbody tr td,
+        tfoot tr th,
+        tfoot tr td {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        tfoot tr {
+            overflow: hidden;
+            th {
+                float: left;
+                width: 70%;
+            }
+            td {
+                float: left;
+                width: 30%;
+                text-align: right;
+            }
+        }
+    }
+}
+// tablet & desktop
+@media (@min: @screen_t) {
+    .order-information__block {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-column-gap: 10px;
+    }
+    .ordered-items {
+        th,
+        td {
+            &.price,
+            &.qty,
+            &.subtotal {
+                text-align: right;
+            }
+        }
+        tfoot {
+            text-align: right;
+        }
+    }
+}

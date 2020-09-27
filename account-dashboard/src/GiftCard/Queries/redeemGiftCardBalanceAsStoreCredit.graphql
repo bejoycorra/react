@@ -1,0 +1,12 @@
+mutation redeemGiftCardBalanceAsStoreCredit($giftCardCode: String!) {
+    redeemGiftCardBalanceAsStoreCredit(
+        input: { gift_card_code: $giftCardCode }
+    ) {
+        balance {
+            currency
+            value
+        }
+        code
+        expiration_date
+    }
+}

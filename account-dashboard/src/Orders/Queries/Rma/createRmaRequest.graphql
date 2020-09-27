@@ -1,0 +1,12 @@
+mutation createRmaRequest(
+    $orderId: Int
+    $customerCustomEmail: String
+    $items: [RmaRequestItemInput]!
+    $rmaComment: String
+) {
+    createRmaRequest(
+        input: { order_id: $orderId, customer_custom_email: $customerCustomEmail, items: $items, rma_comment: $rmaComment }
+    ) {
+        response
+    }
+}

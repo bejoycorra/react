@@ -1,0 +1,37 @@
+query returnDetails($id: Int!) {
+    returnDetails(id: $id) {
+        entity_id
+        increment_id
+        status
+        order_increment_id
+        order_id
+        date_requested
+        return_address
+        customer_email
+        customer_custom_email
+        items {
+            product_id
+            name
+            sku
+            condition
+            resolution
+            reason
+            request_qty
+            qty
+            status
+            item_options {
+                label
+                value
+                option_id
+                option_value
+            }
+
+        }
+        comments {
+            comment
+            status
+            created_at
+            is_admin
+        }
+    }
+}

@@ -1,0 +1,7 @@
+mutation updateCustomer($is_subscribed: Boolean!) {
+    updateCustomer(input: { is_subscribed: $is_subscribed }) {
+        customer {
+            is_subscribed
+        }
+    }
+}

@@ -1,0 +1,6 @@
+query country($id: String!) {
+    country(id: $id) {
+        id
+        full_name_locale
+    }
+}

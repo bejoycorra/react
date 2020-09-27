@@ -1,0 +1,46 @@
+{
+    "name": "@corratech/account-dashboard",
+    "version": "2.4.21-dev.9",
+    "license": "UNLICENSED",
+    "readme": "README.md",
+    "changelog": "CHANGELOG.md",
+    "description": "",
+    "main": "index.js",
+    "peerDependencies": {
+        "@corratech/add-to-requisition": "^1.0.9",
+        "@corratech/address": "^1.0.0",
+        "@corratech/collapsible-container": "^1.0.1",
+        "@corratech/common-styles": "^1.0.1",
+        "@corratech/context-provider": "^1.2.8",
+        "@corratech/dropdown": "^1.0.11",
+        "@corratech/form-components": "^1.2.19",
+        "@corratech/my-account-navigation": "^1.0.0",
+        "@corratech/pagination": "^1.2.5",
+        "@corratech/price": "^1.1.1",
+        "@corratech/quantity-selector": "1.1.3",
+        "@corratech/render-apollo-error": "^1.0.0",
+        "@emotion/core": "^10.0.20",
+        "@magento/peregrine": "^4.0.0",
+        "graphql-tag": "^2.10.1",
+        "informed": "^2.11.9",
+        "prop-types": "^15.7.2",
+        "react": "^16.12.0",
+        "react-bootstrap": "^1.0.0-beta.16",
+        "react-dom": "^16.12.0",
+        "react-feather": "^2.0.3",
+        "react-i18next": "^10.13.1",
+        "react-router-dom": "^5.1.2",
+        "react-tabs": "^3.0.0",
+        "react-use": "^13.24.0"
+    },
+    "devDependencies": {
+        "prop-types": "^15.7.2"
+    },
+    "dependencies": {
+        "@corratech/password-field": "^1.1.15",
+        "form-serialize": "^0.7.2",
+        "formik": "^2.0.7",
+        "papaparse": "^5.1.0",
+        "yup": "^0.27.0"
+    }
+}

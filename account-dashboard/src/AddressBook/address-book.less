@@ -1,0 +1,43 @@
+@address-grid-template-columns: 1fr 1fr;
+@address-row-border-color: #ddd;
+
+.new-address-from {
+    padding-top: 40px;
+}
+
+.default-address-container {
+    display: grid;
+    grid-template-columns: @address-grid-template-columns;
+}
+
+.address-list-container {
+    tr {
+        border-bottom: 1px solid @address-row-border-color;
+    }
+}
+.mobile-label {
+    display: none;
+}
+//.contact-inform-section {
+//    margin-right: 2%;
+//}
+
+// Modal styles
+/*TODO To be removed after implementing it in Common Styles or GEG*/
+@media (max-width: @screen_s) {
+    .dashboard-block .default-address-container {
+        display: inline-block;
+    }
+}
+@media (max-width: @screen_m) {
+    .default-address-container {
+        display: grid;
+        grid-template-columns: @address-grid-template-columns;
+    }
+}
+@media (min-width: @screen_m) {
+    .default-address-container {
+        display: grid;
+        grid-template-columns: @address-grid-template-columns;
+    }
+}

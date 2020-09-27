@@ -1,0 +1,345 @@
+@myaccount-container__margin: 40px;
+@myaccount-content__width: 75%;
+@myaccount-navigation__width: 25%;
+@myaccount-navigation__margin-bottom: 50px;
+@myaccount-navigation__padding-right: 2%;
+@myaccount-nav-wrapper__background-color: #f6f6f6;
+@myaccount-nav-wrapper__padding: 15px 0;
+@myaccount-nav-wrapper__min-height: 400px;
+@myaccount-nav-wrapper-li__margin-bottom: 10px;
+@myaccount-nav-wrapper-li-a__font-size: 14px;
+@myaccount-nav-wrapper-li-a__line-height: 18px;
+@myaccount-nav-wrapper-li-a__padding: 5px 18px 5px 15px;
+@myaccount-table-wrapper__margin-bottom: 20px;
+@myaccount-mob-menu-head-icon__font-size: 20px;
+@myaccount-page-title__font-size: 20px;
+@myaccount-page-title__line-height: 33px;
+@myaccount-page-title__margin-bottom: 20px;
+@myaccount-block-title__font-size: 18px;
+@myaccount-block-title__line-height: 22px;
+@myaccount-block-title__margin-bottom: 13px;
+@myaccount-block-title__padding: 12px 0;
+@myaccount-block-subtitle__font-size: 18px;
+@myaccount-block-subtitle__line-height: 22px;
+@myaccount-block-subtitle__margin-bottom: 10px;
+@myaccount-block-action__margin-top: 20px;
+@myaccount-address-list__margin-bottom: 30px;
+@myaccount-order-table-th__padding-right: 10px;
+@myaccount-order-table-view-order-link__padding-right: 10px;
+@myaccount-order-table-view-order-link__margin-right: 10px;
+@myaccount-block__margin-bottom: 30px;
+@addressbook-block-width: 48%;
+@alert-icon-top: 12px;
+@shipment-tracking-font__size: 24px;
+@shipment-tracking-line-height: 31px;
+
+.myaccount-wrap {
+    position: relative;
+    text-align: left;
+
+    .alert {
+        svg {
+            top: @alert-icon-top;
+        }
+    }
+
+    &.container-width {
+        margin: @myaccount-container__margin auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .nav-wrapper {
+        position: static;
+        width: @full-width;
+    }
+
+    h3 {
+        border-bottom: 1px solid @color__whitegray;
+        padding-bottom: 8px;
+        margin-bottom: 13px;
+
+        a {
+            font-size: 21px;
+        }
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        margin-bottom: @myaccount-table-wrapper__margin-bottom;
+        table {
+            width: @full-width;
+            border-collapse: collapse;
+            border-spacing: 0;
+            max-width: @full-width;
+            tr {
+                th,
+                td {
+                    &:first-child {
+                        padding-left: 0;
+                    }
+                    &:last-child {
+                        padding-right: 0;
+                    }
+                }
+            }
+            &.orders-list {
+                thead {
+                    th {
+                        padding-top: 0;
+                    }
+                }
+                tbody {
+                    th {
+                        font-weight: @font-400;
+                    }
+                    td {
+                        .btn-link {
+                            border-left: 1px solid @color-black;
+                            padding-left: @myaccount-order-table-view-order-link__padding-right;
+                            line-height: 1;
+                        }
+                        .primary-link {
+                            padding-right: @myaccount-order-table-view-order-link__padding-right;
+                            padding-left: 0;
+                            line-height: 1;
+                            border-left: 0;
+                            &:first-child {
+                                padding-right: @myaccount-order-table-view-order-link__padding-right;
+                            }
+                        }
+
+                        .grand-total {
+                            font-weight: @font-600;
+                        }
+                        &.table-actions {
+                            white-space: nowrap;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .new-address-from {
+        .address-inform-section {
+            .root-checkbox {
+                margin-bottom: 7px;
+            }
+        }
+    }
+    .email-pwrd-wrapper {
+        float: left;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .ContactInformation {
+        .dashboard-block.name-form {
+            p {
+                padding-bottom: 5px;
+            }
+        }
+    }
+    .my-account {
+        &__page-title {
+            font-size: @myaccount-page-title__font-size;
+            line-height: @myaccount-page-title__line-height;
+            margin-bottom: @myaccount-page-title__margin-bottom;
+            font-weight: @font-800;
+        }
+        &__block {
+            margin-bottom: @myaccount-block__margin-bottom;
+            float: left;
+            width: 100%;
+            &.address-dashboard-block {
+                width: 100%;
+            }
+            &-title {
+                border-bottom: 1px solid @color__whitegray;
+                line-height: @myaccount-block-title__line-height;
+                font-size: @myaccount-block-title__font-size;
+                padding: @myaccount-block-title__padding;
+                margin-bottom: @myaccount-block-title__margin-bottom;
+            }
+            &-subtitle {
+                font-weight: 600;
+                line-height: @myaccount-block-subtitle__line-height;
+                font-size: @myaccount-block-subtitle__font-size;
+                margin-bottom: @myaccount-block-subtitle__margin-bottom;
+            }
+            &-actions {
+                margin-top: @myaccount-block-action__margin-top;
+            }
+        }
+    }
+    .new-address-from {
+        padding-top: 0;
+    }
+    .submit-btn-form {
+        clear: both;
+    }
+}
+.shipment-tracking-modal {
+    .modal-header {
+        display: block;
+        .modal-title {
+            margin-bottom: 20px;
+            font-size: @shipment-tracking-font__size;
+            line-height: @shipment-tracking-line-height;
+        }
+        .tracking-number-hash {
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+    }
+}
+//mobile
+@media (@max: @screen_m) {
+    .myaccount-wrap {
+        .nav-wrapper {
+            background: @myaccount-nav-wrapper__background-color;
+            border: none;
+            min-height: auto;
+            padding: @myaccount-nav-wrapper__padding;
+            li {
+                padding: 0;
+                margin-bottom: @myaccount-nav-wrapper-li__margin-bottom;
+                a {
+                    font-size: @myaccount-nav-wrapper-li-a__font-size;
+                    line-height: @myaccount-nav-wrapper-li-a__line-height;
+                    border-left: 3px solid transparent;
+                    color: #161616;
+                    display: block;
+                    padding: @myaccount-nav-wrapper-li-a__padding;
+                }
+            }
+        }
+        .new-address-from {
+            .contact-inform-section,
+            .address-inform-section {
+                .field-wrapper {
+                    width: 100%;
+                    float: left;
+                }
+            }
+        }
+    }
+    .address-list-container .my-account__block-title {
+        padding-top: 0;
+    }
+    .myaccount-content,
+    .my-account-navigation {
+        flex-basis: @full-width;
+        width: @full-width;
+    }
+    .my-account-navigation {
+        margin-bottom: 20px;
+    }
+    .my-account-mob-menu-head {
+        display: block;
+        border: none;
+        margin-bottom: 0;
+        cursor: pointer;
+        text-align: left;
+        span {
+            float: right;
+            position: relative;
+        }
+    }
+    .default-address-container {
+        flex-wrap: wrap;
+        .address-list {
+            &:first-child {
+                margin-right: 0;
+            }
+            &:not(:last-child) {
+                margin-bottom: @myaccount-address-list__margin-bottom;
+            }
+            max-width: @full-width;
+            flex-basis: @full-width;
+        }
+    }
+    .myaccount-wrap {
+        .table-wrapper {
+            table {
+                th,
+                td {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+                &.orders-list {
+                    thead {
+                        tr th {
+                            display: none;
+                        }
+                    }
+                    &,
+                    tbody,
+                    tbody tr,
+                    tbody tr td {
+                        display: block;
+                        border: none;
+                    }
+                    tbody tr td {
+                        &:before {
+                            padding-right: @myaccount-order-table-th__padding-right;
+                            content: attr(data-th) ': ';
+                            font-weight: @font-700;
+                        }
+                        &:last-child {
+                            border-bottom: 1px solid @color__whitegray;
+                            margin-bottom: 10px;
+                            padding-bottom: 17px;
+                        }
+                        &.table-actions {
+                            padding-top: 20px;
+                            &:before {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+//tablet & desktop
+@media (@min: @screen_t) {
+    .myaccount-wrap {
+        .new-address-from {
+            .contact-inform-section,
+            .address-inform-section {
+                width: 48%;
+                .field-wrapper .label {
+                    min-height: 13px;
+                }
+            }
+        }
+        .nav-wrapper {
+            min-height: @myaccount-nav-wrapper__min-height;
+        }
+        .table-wrapper table {
+            td,
+            th {
+                padding: 11px 10px;
+            }
+        }
+    }
+    .myaccount-content {
+        width: @myaccount-content__width;
+    }
+    .my-account-navigation {
+        width: @myaccount-navigation__width;
+        padding-right: @myaccount-navigation__padding-right;
+    }
+
+    .contact-inform-section,
+    .address-inform-section {
+        float: left;
+        width: @addressbook-block-width;
+    }
+
+    .address-inform-section {
+        margin-left: 4%;
+    }
+}

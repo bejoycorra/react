@@ -1,0 +1,15 @@
+mutation submitReturnComment(
+    $id: Int!
+    $comment: String
+) {
+    addRmaComment(
+        input: {id:$id, comment: $comment}
+    ) {
+        comments {
+            comment
+            status
+            created_at
+            is_admin
+        }
+    }
+}

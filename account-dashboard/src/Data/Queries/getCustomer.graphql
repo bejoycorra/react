@@ -1,0 +1,36 @@
+query Customer {
+    customer {
+        email
+        firstname
+        lastname
+        middlename
+        is_subscribed
+        addresses {
+            region {
+                region_code
+                region
+                region_id
+            }
+            id
+            region_id
+            country_id
+            street
+            company
+            telephone
+            fax
+            postcode
+            city
+            firstname
+            lastname
+            middlename
+            prefix
+            suffix
+            vat_id
+            default_shipping
+            default_billing
+        }
+        store_credit {
+            enabled
+        }
+    }
+}

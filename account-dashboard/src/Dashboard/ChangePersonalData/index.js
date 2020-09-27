@@ -1,0 +1,1 @@
+export { ChangePersonalData } from './ChangePersonalData';

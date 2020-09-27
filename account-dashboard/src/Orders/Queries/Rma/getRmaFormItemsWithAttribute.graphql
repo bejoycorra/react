@@ -1,0 +1,20 @@
+query getRmaFormItems($orderId: Int!) {
+    getRmaFormItems(orderId: $orderId) {
+        return_items {
+          order_item_id
+          available_qty
+          product_name
+        }
+    }
+    getRmaFormAttributes {
+        attributes {
+          code
+          type
+          label
+          values {
+            option_id
+            option_value
+          }
+        }
+    }
+}

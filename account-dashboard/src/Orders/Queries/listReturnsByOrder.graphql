@@ -1,0 +1,12 @@
+query listReturnsByOrder($pageSize: Int, $currentPage: Int, $orderId: Int) {
+    listReturnsByOrder(pageSize: $pageSize, currentPage: $currentPage, orderId:$orderId) {
+        total_count
+        returns_by_order {
+            id
+            increment_id
+            ship_from
+            date_requested
+            status
+        }
+    }
+}

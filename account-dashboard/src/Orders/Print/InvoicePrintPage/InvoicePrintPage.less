@@ -1,0 +1,33 @@
+@myaccount-order-print-contianer__margin-top: -1px;
+@myaccount-order-print-contianer__padding: 25px;
+@myaccount-order-print-contianer__border-color: #eaeaea;
+
+.page-print {
+    .my-account-navigation,
+    .footer-container {
+        display: none;
+    }
+
+    .my-account-navigation,
+    .print-order-link {
+        display: none;
+    }
+
+    .myaccount-content {
+        width: 100%;
+    }
+
+    .order-print-contianer {
+        border: 1px solid @myaccount-order-print-contianer__border-color;
+        margin-top: @myaccount-order-print-contianer__margin-top;
+        padding: @myaccount-order-print-contianer__padding;
+    }
+}
+
+@media print {
+    .page-print {
+        .order-print-contianer {
+            color: @color-black;
+        }
+    }
+}

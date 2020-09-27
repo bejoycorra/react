@@ -1,0 +1,30 @@
+@myaccount-giftcard-button__max-width: 450px;
+@myaccount-giftcard-button__margin-left: 10px;
+@myaccount-giftcard-button__margin-bottom: 20px;
+//mobile
+@media (@max: @screen_m) {
+    .giftcard-container {
+        .button-containers {
+            max-width: @myaccount-giftcard-button__max-width;
+            display: flex;
+            flex-direction: column;
+            button {
+                margin-bottom: @myaccount-giftcard-button__margin-bottom;
+            }
+        }
+    }
+}
+// tablet & desktop
+@media (@min: @screen_t) {
+    .giftcard-container {
+        .button-containers {
+            button {
+                margin-left: @myaccount-giftcard-button__margin-left;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}

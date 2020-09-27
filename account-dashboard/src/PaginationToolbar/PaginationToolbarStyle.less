@@ -1,0 +1,32 @@
+@pagination-select__width: 80px;
+@pagination-select__margin: 0 5px 0 7px;
+
+.pagination-dropdown {
+    & select {
+        width: @pagination-select__width;
+        cursor: pointer;
+    }
+    .select-box-wrapper {
+        margin: @pagination-select__margin;
+        display: inline-block;
+    }
+}
+// mobile
+@media (@max: @screen_m) {
+    .myaccount-content {
+        .pagination-toolbar {
+            display: block;
+            text-align: center;
+            .items-count {
+                padding-bottom: 10px;
+            }
+            .pagination {
+                margin-bottom: 10px;
+                display: block;
+                .page-item {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}

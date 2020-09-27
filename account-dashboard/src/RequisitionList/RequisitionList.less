@@ -1,0 +1,438 @@
+@import '~@corratech/common-styles/src/mixins/_screen-reader.less';
+@import '~@corratech/common-styles/src/mixins/_breakpoints.less';
+@import '~@corratech/common-styles/src/_common_mixins.less';
+
+.requisition-page {
+    margin-bottom: 100px;
+
+    .toolbar {
+        .create-list-button {
+            display: block;
+            width: 100%;
+            text-align: right;
+        }
+    }
+
+    .product-form {
+        margin: 40px 0;
+    }
+}
+
+.requisition-items {
+    .toolbar {
+        .-left {
+            h1,
+            a {
+                display: inline;
+            }
+
+            a {
+                margin-left: 10px;
+
+                button {
+                    min-width: auto;
+                }
+            }
+        }
+
+        .-justified,
+        .-right {
+            #flex();
+        }
+
+        .-right {
+            button {
+                text-align: right;
+            }
+        }
+
+        .-justified {
+            justify-content: space-between;
+
+            .root-checkbox {
+                margin: 0;
+                cursor: pointer;
+            }
+
+            .list-actions {
+                #flex();
+                flex-wrap: wrap;
+            }
+
+            .items {
+                flex-shrink: 0;
+                margin-right: 10px;
+            }
+        }
+
+        .-right {
+            justify-content: flex-end;
+        }
+
+        .remove-selected {
+            button {
+                min-width: auto;
+            }
+        }
+    }
+
+    .price,
+    .subtotal {
+        font-weight: 700;
+    }
+
+    .product-options {
+        a {
+            button {
+                text-align: left;
+            }
+        }
+    }
+}
+
+.lists-table {
+    width: 100%;
+
+    .row {
+        width: 100%;
+        border-bottom: 1px solid @color__whitegray;
+
+        > div {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .action {
+            text-align: right;
+
+            button {
+                min-width: auto;
+                text-align: right;
+            }
+        }
+    }
+
+    .product-name {
+        font-size: 18px;
+    }
+
+    .product-description {
+        font-size: 13px;
+    }
+
+    .head {
+        font-weight: bold;
+    }
+}
+
+.list-dropdown {
+    position: relative;
+    cursor: pointer;
+    display: inline;
+
+    > div {
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        position: absolute;
+        z-index: 9;
+        padding: 5px 5px 5px 23px;
+        background: @color-white;
+        font-size: 13px;
+        border: 1px solid @color__whitegray;
+
+        a {
+            display: block;
+            white-space: nowrap;
+        }
+
+        button {
+            text-align: left;
+        }
+
+        .create-wishlist-button,
+        .create-list-button {
+            margin-left: -13px;
+        }
+    }
+}
+
+.table-wrapper {
+    margin-bottom: 40px;
+}
+
+.requisition-table {
+    width: 100%;
+
+    tr {
+        border-bottom: 1px solid @color__whitegray;
+    }
+
+    tbody {
+        th {
+            font-weight: normal;
+        }
+    }
+
+    .actions {
+        a:first-child {
+            margin-right: 10px;
+        }
+
+        button {
+            min-width: auto;
+        }
+    }
+
+    input[type='text'] {
+        width: 54px;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: @mobile) {
+    .requisition-page,
+    .requisition-items {
+        .toolbar:not(.-empty) {
+            padding-bottom: 10px;
+            border-bottom: 1px solid @color__whitegray;
+        }
+    }
+
+    .requisition-items {
+        margin: 0 -15px;
+
+        .toolbar,
+        .actions-toolbar {
+            padding: 0 15px;
+        }
+
+        .requisition-table {
+            th,
+            td {
+                padding: 5px 10px;
+
+                &:last-child {
+                    padding-bottom: 15px;
+                }
+            }
+
+            td {
+                display: block;
+            }
+
+            .product-options {
+                a {
+                    margin-bottom: 10px;
+                    display: block;
+                }
+            }
+
+            .root-checkbox {
+                margin: 0;
+            }
+
+            .number,
+            .subtotal {
+                #flex();
+                justify-content: space-between;
+
+                button {
+                    min-width: auto;
+                }
+            }
+        }
+
+        h1 {
+            font-size: 26px;
+        }
+
+        .list-dropdown {
+            .dropdown-content {
+                right: 0;
+            }
+        }
+    }
+
+    .lists-table .row,
+    .requisition-table {
+        .mobile-label {
+            padding-right: 15px;
+            font-weight: 700;
+        }
+    }
+
+    .lists-table {
+        .row {
+            #flex();
+            flex-direction: column;
+
+            > div {
+                #flex();
+                flex-wrap: wrap;
+                padding: 5px 10px;
+                align-items: flex-end;
+                width: 100%;
+
+                &:last-child {
+                    padding-bottom: 15px;
+                }
+            }
+        }
+
+        .head {
+            display: none;
+        }
+    }
+}
+
+@media screen and (min-width: @tablet) {
+    .requisition-page {
+        .toolbar {
+            #flex();
+            align-items: center;
+            justify-content: space-between;
+
+            .create-list-button {
+                width: auto;
+            }
+        }
+    }
+
+    .requisition-items {
+        .table-wrapper {
+            overflow: auto;
+
+            .requisition-table {
+                min-width: 700px;
+                table-layout: fixed;
+            }
+        }
+
+        .toolbar {
+            .-justified {
+                .list-dropdown {
+                    margin-left: 15px;
+
+                    .dropdown-content {
+                        left: auto;
+                        right: 0;
+                    }
+                }
+            }
+        }
+
+        .list-dropdown {
+            .dropdown-content {
+                left: 0;
+            }
+        }
+
+        .remove-selected {
+            margin-left: 15px;
+        }
+
+        .delete-list {
+            float: right;
+        }
+    }
+
+    .lists-table .row,
+    .requisition-table {
+        .mobile-label {
+            display: none;
+        }
+    }
+
+    .lists-table {
+        .product-name {
+            font-weight: 700;
+        }
+
+        .name {
+            width: 40%;
+        }
+
+        .action {
+            width: 15%;
+        }
+
+        .items {
+            width: 20%;
+        }
+
+        .activity {
+            width: 25%;
+        }
+
+        .row {
+            > div {
+                padding: 11px 10px;
+            }
+        }
+    }
+
+    .requisition-table {
+        .number {
+            width: 5%;
+        }
+
+        th,
+        td {
+            padding: 11px 10px;
+            vertical-align: top;
+        }
+
+        .root-checkbox {
+            margin-top: 0;
+        }
+
+        .item {
+            #flex();
+            align-items: flex-start;
+
+            .product-image {
+                margin: 0 20px;
+                max-width: 85px;
+                flex-shrink: 0;
+            }
+        }
+
+        .price,
+        .subtotal,
+        .qty {
+            text-align: right;
+        }
+
+        .price {
+            width: 10%;
+        }
+
+        .subtotal {
+            width: 20%;
+            overflow: auto;
+        }
+
+        .qty {
+            position: relative;
+            width: 20%;
+
+            .message-root {
+                position: absolute;
+                right: 0;
+                white-space: nowrap;
+
+                .root_error {
+                    margin: 0;
+                }
+            }
+        }
+
+        .subtotal {
+            .actions {
+                margin-top: 35px;
+            }
+        }
+    }
+}

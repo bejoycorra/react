@@ -1,0 +1,30 @@
+query Customer {
+    customer {
+        store_credit {
+            enabled
+            current_balance {
+                value
+                currency
+            }
+            balance_history {
+                page_info {
+                    current_page
+                    page_size
+                    total_pages
+                }
+                items {
+                    actual_balance {
+                        value
+                        currency
+                    }
+                    balance_change {
+                        value
+                        currency
+                    }
+                    date_time_changed
+                    action
+                }
+            }
+        }
+    }
+}

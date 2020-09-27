@@ -1,0 +1,25 @@
+.account-information {
+    display: flex;
+    flex-wrap: wrap;
+
+    .profile-block {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .actions-bar {
+        width: 100%;
+    }
+}
+
+@media (@min: @screen_t) {
+    .account-information {
+        .profile-block {
+            width: 47%;
+
+            &:first-child {
+                margin-right: 6%;
+            }
+        }
+    }
+}

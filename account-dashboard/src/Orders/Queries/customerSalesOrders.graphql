@@ -1,0 +1,39 @@
+query customerSalesOrders($pageSize: Int, $currentPage: Int) {
+    customerSalesOrders(pageSize: $pageSize, currentPage: $currentPage) {
+        total_count
+        items {
+            id
+            created_at
+            grand_total {
+                value
+                currency
+            }
+            ship_to {
+                name
+            }
+            increment_id
+            status
+            reorder_status
+            reorder_items {
+                sku
+                title
+                parent_sku
+                price {
+                    value
+                    currency
+                }
+                qty_backordered
+                qty_canceled
+                qty_invoiced
+                qty_ordered
+                qty_refunded
+                qty_shipped
+                qty_returned
+                row_total {
+                    value
+                    currency
+                }
+            }
+        }
+    }
+}

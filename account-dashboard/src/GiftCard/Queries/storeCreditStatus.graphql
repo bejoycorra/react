@@ -1,0 +1,7 @@
+query Customer {
+    customer {
+        store_credit {
+            enabled
+        }
+    }
+}

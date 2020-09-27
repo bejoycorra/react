@@ -1,0 +1,217 @@
+query orderDetails($id: Int!) {
+    orderDetails(id: $id) {
+        id
+        increment_id
+        status
+        created_at
+        customer_name
+        customer_firstname
+        customer_lastname
+        customer_email
+        base_gift_card_amount {
+            value
+            currency
+        }
+        gift_card_amount {
+            value
+            currency
+        }
+        base_customer_balance_amount {
+            value
+            currency
+        }
+        customer_balance_amount {
+            value
+            currency
+        }
+        gift_cards {
+            code
+            amount {
+                value
+                currency
+            }
+            base_amount {
+                value
+                currency
+            }
+        }
+        invoices {
+            id
+            number
+            invoiced_items {
+                id
+                name
+                quantity_invoiced
+                sku
+                price {
+                    value
+                    currency
+                }
+                row_total {
+                    currency
+                    value
+                }
+                additional_data
+                product_type
+                product_options {
+                    config_options {
+                        label
+                        value
+                        option_id
+                        option_value
+                    }
+                }
+            }
+            subtotal {
+                value
+                currency
+            }
+            grand_total {
+                value
+                currency
+            }
+            discount_amount {
+                currency
+                value
+            }
+            shipping_amount {
+                value
+                currency
+            }
+            tax_amount {
+                value
+                currency
+            }
+            gift_card_amount {
+                currency
+                value
+            }
+            customer_balance_amount {
+                currency
+                value
+            }
+        }
+        shipments {
+            id
+            number
+            shipping_method
+            shipping_address {
+                name
+                street
+                city
+                region
+                country_id
+            }
+            billing_address {
+                name
+                street
+                city
+                region
+                country_id
+            }
+            tracks {
+                track_number
+                title
+                carrier_code
+                description
+            }
+            shipped_items {
+                id
+                name
+                sku
+                price {
+                    value
+                    currency
+                }
+                additional_data
+                quantity_shipped
+                product_type
+                product_options {
+                    config_options {
+                        label
+                        value
+                        option_id
+                        option_value
+                    }
+                }
+            }
+        }
+        subtotal {
+            value
+            currency
+        }
+        discount_amount {
+            value
+            currency
+        }
+        shipping_amount {
+            value
+            currency
+        }
+        tax_amount {
+            value
+            currency
+        }
+        grand_total {
+            value
+            currency
+        }
+        is_guest_customer
+        reorder_status
+        shipping_method
+        shipping_description
+        shipping {
+            name
+            street
+            city
+            region
+            country_id
+            postcode
+            telephone
+            company
+        }
+        billing {
+            name
+            street
+            city
+            region
+            country_id
+            postcode
+            telephone
+            company
+        }
+        items {
+            sku
+            title
+            parent_sku
+            price {
+                value
+                currency
+            }
+            qty_backordered
+            qty_canceled
+            qty_invoiced
+            qty_ordered
+            qty_refunded
+            qty_shipped
+            qty_returned
+            row_total {
+                value
+                currency
+            }
+            product_type
+            product_options {
+                config_options {
+                    label
+                    value
+                }
+            }
+        }
+        payment {
+            payment_method
+            payment_method_title
+            cc_type
+            cc_number
+        }
+    }
+}

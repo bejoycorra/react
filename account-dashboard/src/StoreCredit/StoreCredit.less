@@ -1,0 +1,40 @@
+@myaccount-store-credit-block__width: 48%;
+@myaccount-store-credit-block__margin-right: 4%;
+.store-history {
+    tr {
+        border-bottom: 1px solid @color__whitegray;
+    }
+}
+.myaccount-wrap {
+    .myaccount-content {
+        .store-credit {
+            &-balance {
+                .store-container {
+                    a {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// tablet & desktop
+@media (@min: @screen_t) {
+    .myaccount-wrap {
+        .store-credit {
+            &-balance {
+                .my-account__block {
+                    width: @myaccount-store-credit-block__width;
+                    float: left;
+                    &:first-child {
+                        margin-right: @myaccount-store-credit-block__margin-right;
+                    }
+                }
+                > .store {
+                    clear: both;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,5 @@
+query canCreateRma($orderId: Int!) {
+    canCreateRma(orderId: $orderId) {
+        is_return_available
+    }
+}

@@ -1,0 +1,81 @@
+@import '~@corratech/common-styles/src/mixins/_screen-reader.less';
+@import '~@corratech/common-styles/src/mixins/_breakpoints.less';
+@import '~@corratech/common-styles/src/_common_mixins.less';
+
+.share-wishlist-page.container-width {
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+    .product-table {
+        margin: 40px 0;
+        width: 100%;
+
+        td,
+        th {
+            padding: 11px 10px;
+        }
+
+        thead,
+        tr {
+            border-bottom: 1px solid #eaeaea;
+
+            img {
+                margin-right: 15px;
+                max-width: 115px;
+            }
+        }
+
+        .product {
+            font-weight: normal;
+
+            .product-image {
+                margin-bottom: 10px;
+
+                img {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+        .actions {
+            > button {
+                margin: 0 10px 0 0;
+            }
+
+            a {
+                padding: 10px 0;
+                display: inline-block;
+
+                button {
+                    min-width: auto;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: @mobile) {
+    .share-wishlist-page {
+        h1 {
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .mobile-label {
+            margin-right: 10px;
+            font-weight: 700;
+        }
+
+        td,
+        th {
+            display: block;
+        }
+    }
+}
+
+@media screen and (min-width: @mobile) {
+    .share-wishlist-page {
+        .comment {
+            width: 30%;
+        }
+    }
+}
