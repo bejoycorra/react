@@ -18,10 +18,10 @@ export const ReturnComments = props => {
                 <div key={key}>
                     <div className="col comment">
                         {comment.is_admin
-                            ? t('Customer Service ')
-                            : t('customer name ')
+                            ? t('Customer Service')
+                            : itemData.customer_name
                         }
-                        {comment.created_at}
+                        <span> {comment.created_at}</span>
                         <div>   {comment.comment} </div>
                     </div>
                 </div>
