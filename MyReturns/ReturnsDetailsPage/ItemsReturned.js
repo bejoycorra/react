@@ -1,11 +1,10 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export const ItemsReturned = props => {
     const { itemData, returnItemsTitle } = props;
     const [t] = useTranslation();
     const { items } = itemData;
-    debugger
     const getReturnItems = useMemo(
         () =>
             items.map((item, key) => (
@@ -63,21 +62,24 @@ export const ItemsReturned = props => {
 
     return (
         <div className="returned-items-container">
-            <div>{t(returnItemsTitle)}</div>
-            <table className="returned-items">
-                <thead>
-                <tr>
-                    <th className="col name">{t('Product Name')}</th>
-                    <th className="col sku">{t('SKU')}</th>
-                    <th className="col condition">{t('Condition')}</th>
-                    <th className="col resolution">{t('Resolution')}</th>
-                    <th className="col qty">{t('Request Qty')}</th>
-                    <th className="col qty">{t('Qty')}</th>
-                    <th className="col status">{t('Status')}</th>
-                </tr>
-                </thead>
-                <tbody>{items && getReturnItems}</tbody>
-            </table>
+            <h3>{t(returnItemsTitle)}</h3>
+            <div className={'table-wrapper'}>
+                <table className="returned-items returns-list">
+                    <caption className="table-caption sr-only">My Returns</caption>
+                    <thead>
+                    <tr>
+                        <th className="col name">{t('Product Name')}</th>
+                        <th className="col sku">{t('SKU')}</th>
+                        <th className="col condition">{t('Condition')}</th>
+                        <th className="col resolution">{t('Resolution')}</th>
+                        <th className="col qty">{t('Request Qty')}</th>
+                        <th className="col qty">{t('Qty')}</th>
+                        <th className="col status">{t('Status')}</th>
+                    </tr>
+                    </thead>
+                    <tbody>{items && getReturnItems}</tbody>
+                </table>
+            </div>
         </div>
     );
 };

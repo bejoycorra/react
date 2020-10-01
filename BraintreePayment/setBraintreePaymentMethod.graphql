@@ -1,0 +1,25 @@
+mutation setBraintreePaymentMethod(
+    $cartId: String!
+    $braintreeNonce: String!
+    $storeInVault: Boolean = false
+) {
+    setPaymentMethodOnCart(
+        input: {
+            cart_id: $cartId
+            payment_method: {
+                code: "braintree"
+                braintree: {
+                    payment_method_nonce: $braintreeNonce
+                    is_active_payment_token_enabler: $storeInVault
+                }
+            }
+        }
+    ) {
+        cart {
+            selected_payment_method {
+                code
+                title
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+mutation setIwdApplepayMethod($cartId: String!, $braintreeNonce: String!) {
+    setPaymentMethodOnCart(
+        input: {
+            cart_id: $cartId
+            payment_method: {
+                code: "iwd_applepay"
+                iwd_applepay: { payment_method_nonce: $braintreeNonce }
+            }
+        }
+    ) {
+        cart {
+            selected_payment_method {
+                code
+                title
+            }
+        }
+    }
+}
