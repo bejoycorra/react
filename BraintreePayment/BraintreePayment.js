@@ -220,7 +220,7 @@ const BraintreePayment = (props) => {
                     createBraintreeParams.paypal = paypal;
                 }
                 if (isPaymentMethodAvailable(applepayMethod)) {
-                    createBraintreeParams.applepay = applepay;
+                    createBraintreeParams.applePay = applepay;
                 }
 
                 setDropinInstance(
