@@ -26,6 +26,19 @@ const MUTATION_ORDER_BY_SKU = gql`
                         special_price
                         url_key
                     }
+                    prices {
+                        price {
+                            value
+                        }
+                        row_total_including_tax {
+                            value
+                            currency
+                        }
+                        row_total {
+                            value
+                            currency
+                        }
+                    }
                     quantity
                 }
 

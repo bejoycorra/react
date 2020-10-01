@@ -1,5 +1,5 @@
-query listReturnsByOrder($pageSize: Int, $currentPage: Int, $orderId: Int) {
-    listReturnsByOrder(pageSize: $pageSize, currentPage: $currentPage, orderId:$orderId) {
+query listReturnsByOrder($orderId: Int, $pageSize: Int, $currentPage: Int) {
+    listReturnsByOrder(orderId: $orderId, pageSize: $pageSize, currentPage: $currentPage) {
         total_count
         returns_by_order {
             id

@@ -1,27 +1,32 @@
-import React, {Fragment, useMemo, useEffect, useState} from 'react';
-import { useTranslation } from 'react-i18next';
-import {combine, Field, isRequired, TextInput} from "@corratech/form-components";
-import {Button} from "react-bootstrap";
-import {useMutation} from "react-apollo";
-import submitReturnComment from "../Queries/submitReturnComment.graphql"
-import PropTypes from "prop-types";
+import React, {useMemo, useState, useRef}     from 'react';
+import { useTranslation }                     from 'react-i18next';
+import {combine, Field, isRequired, TextArea} from "@corratech/form-components";
+import {Button}                               from "react-bootstrap";
+import {useMutation}                          from "react-apollo";
+import submitReturnComment                    from "../Queries/submitReturnComment.graphql"
+import PropTypes                              from "prop-types";
+import dateFormat                             from "dateformat";
 
 export const ReturnComments = props => {
     const { itemData, returnCommentsTitle } = props;
     const [t] = useTranslation();
     const [returncomments, setReturncomments] = useState(itemData.comments);
     const [comment, setComment] = useState('');
+    const commentInput = useRef(null);
 
     const getReturnComments = useMemo(
         () =>
             returncomments.map((comment, key) => (
                 <div key={key}>
                     <div className="col comment">
-                        {comment.is_admin
-                            ? t('Customer Service ')
-                            : t('customer name ')
-                        }
-                        {comment.created_at}
+                        <label>{comment.is_admin
+                            ? t('Customer Service')
+                            : itemData.customer_name
+                        }</label>
+                        <span> {dateFormat(
+                            new Date(comment.created_at.replace(/-/g, '/')),
+                            'm/d/yy HH:MM TT'
+                        )}</span>
                         <div>   {comment.comment} </div>
                     </div>
                 </div>
@@ -32,8 +37,6 @@ export const ReturnComments = props => {
         submitReturnComment,
         {
             onCompleted: res => {
-                debugger
-                console.log('comment'+res.addRmaComment.comments);
                 setReturncomments(res.addRmaComment.comments);
             }
         }
@@ -44,14 +47,22 @@ export const ReturnComments = props => {
                 id: itemData.entity_id,
                 comment
             }
+        }).then(() => {
+            setComment('');
+            commentInput.current.value = '';
+            commentInput.current.defaultValue = '';
+
         });
     };
     const submitForm = event => {
         event.preventDefault();
+        if(commentInput.current.value =='') {
+            setComment('');
+            commentInput.current.focus();
+        }
         if(comment !==''){
             saveReturnComment(comment);
         }
-
     };
     const submitReturnComments = (
         <form onSubmit={submitForm}>
@@ -59,11 +70,10 @@ export const ReturnComments = props => {
                 label={t(props.commentFieldLabel)}
                 labelText={props.commentFieldLabelText}
             >
-                <TextInput
-                    type={'text'}
-                    autoFocus
+                <TextArea
                     field="comment"
                     id="comment"
+                    ref={commentInput}
                     validate={combine([
                         {
                             fn: isRequired,
@@ -89,9 +99,11 @@ export const ReturnComments = props => {
     );
     return (
         <div className="return-comments-container">
-            <div>{t(returnCommentsTitle)}</div>
+            <h3>{t(returnCommentsTitle)}</h3>
             <div className="return-comments">
-                <div>{returncomments && getReturnComments}</div>
+                <div className={'return-request-details'}>
+                    {returncomments && getReturnComments}
+                </div>
                 <div>{submitReturnComments}</div>
             </div>
         </div>

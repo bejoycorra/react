@@ -1,8 +1,3 @@
-#2.4.21
-
--   My returns link in my account tab.
--   View Details of requested return.
-   
 #2.4.20
 
 -   CSS fixes for accouont dashboard.

@@ -5,7 +5,7 @@ import orderDetails from '../Queries/orderDetails.graphql';
 import getCountry from '../../Data/Queries/getCountry.graphql';
 import canCreateRma from '../Queries/Rma/canCreateRma.graphql';
 import dateFormat from 'dateformat';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LoaderStore, useGlobalOptions } from '@corratech/context-provider';
 import { Tabs, Tab, Button } from 'react-bootstrap';
@@ -17,7 +17,8 @@ import { TrackShipment } from './OrderShipment/TrackShipment';
 import { Reorder } from '../Reorder';
 import './OrderDetailsPage.less';
 import { bool } from 'prop-types';
-import { OrderReturns } from '../Returns/';
+import { OrderReturns } from '../Returns/OrderReturns';
+
 export const OrderDetailsPage = props => {
     const { showTrackingError } = props;
 
@@ -73,7 +74,7 @@ export const OrderDetailsPage = props => {
 
     const orderData = data.orderDetails;
 
-    const isReturn = dataReturns.canCreateRma.is_return_available;
+    const canReturn = dataReturns.canCreateRma.is_return_available;
 
     const { items, ...rest } = orderData;
 
@@ -107,14 +108,14 @@ export const OrderDetailsPage = props => {
                                         props.simpleProductAddToCartGraphql
                                     }
                                 />
-                                {isReturn && (
-                                    <a
-                                        href={`/my-account/orders/returns/${orderId}`}
+                                {canReturn && (
+                                    <Link
+                                        to={`/my-account/orders/returns/${orderId}`}
                                         className="return-link"
                                         title={t('Return Order')}
                                     >
                                         {t('Return')}
-                                    </a>
+                                    </Link>
                                 )}
                             </div>
                             
@@ -195,9 +196,11 @@ export const OrderDetailsPage = props => {
                                     )}
                                 </Tab>
                             )}
-                            <Tab eventKey="orderreturns" title="Returns">
-                                <OrderReturns orderId={orderId}/>
-                            </Tab>
+                            {canReturn && (
+                                <Tab eventKey="returns" title="Returns">
+                                    <OrderReturns orderId={orderId}/>
+                                </Tab>
+                            )}
                         </Tabs>
                     </div>
                     <OrderInformation

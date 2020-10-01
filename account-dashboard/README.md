@@ -1,7 +1,7 @@
 # Account Dashboard
 
 Exports
-`<Wishlist/>, <ShareWishlist/>, <MyAccount/>, <AddressBook/>, <AddressForm/>, <AddressList/>, <Dashboard/>, <ChangePassword/>, <NameForm/>, <Newsletter/>, <Orders/>, <OrdersList/>, <Wishlist/>, <OrderBySku/>, <MyReturns/>`
+`<Wishlist/>, <ShareWishlist/>, <MyAccount/>, <AddressBook/>, <AddressForm/>, <AddressList/>, <Dashboard/>, <ChangePassword/>, <NameForm/>, <Newsletter/>, <Orders/>, <OrdersList/>, <Wishlist/>, <OrderBySku/>`
 
 ###Changelog
 2.0.0: added wishlist functionality and bugfixes
@@ -176,17 +176,6 @@ Allows customer to order in bulk by SKU (simple and config Products).
 `<Route exact path="/my-account/order-by-sku" component={OrderBySku} />`
 
 BE Support : Corra_AdvancedCheckoutGraphQl
-
-**MyReturns**
-Allows customer to see list of returns requested.
-
-`<MyReturns myReturnsTitle={myReturnsTitle} />`
-
-**ReturnsDetailsPage**
-Allows customer to see details of return requested.
-`<Route exact path="/my-account/returns/view/:returnId" component={ReturnsDetailsPage}/>`
-
-BE Support : Corra_RmaExtendedGraphQl
 
 ##Install
 

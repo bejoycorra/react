@@ -179,13 +179,13 @@ const AddressForm = props => {
 
                 if (props.updateAddresses) props.updateAddresses();
 
+                redirectToPage('/my-account/address');
+
                 addMessage({
                     message: t('You saved the address.'),
                     type: 'success',
                     presist: true
                 });
-
-                redirectToPage('/my-account/address');
             });
         },
         onError: error => {
@@ -214,13 +214,12 @@ const AddressForm = props => {
             refetch().then(() => {
                 setAddressLoader(false);
 
+                redirectToPage('/my-account/address');
                 addMessage({
                     message: t('Address Updated!'),
                     type: 'success',
                     presist: true
                 });
-
-                redirectToPage('/my-account/address');
             });
         },
         onError: error => {

@@ -3,8 +3,6 @@ import {useTitle} from "react-use";
 import {useTranslation} from "react-i18next";
 import {Link, useParams} from "react-router-dom";
 import {useMutation, useQuery} from "react-apollo";
-import orderDetails from '../Queries/orderDetails.graphql';
-import getCountry from '../../Data/Queries/getCountry.graphql';
 import getRmaItemsWithAttribute from '../Queries/Rma/getRmaFormItemsWithAttribute.graphql';
 import createReturnRequest from '../Queries/Rma/createRmaRequest.graphql';
 import {LoaderStore} from "@corratech/context-provider";
@@ -16,6 +14,7 @@ import {AlertContext} from "@corratech/account-dashboard/src/Data/Context/AlertP
 import * as yup from 'yup';
 import {Field as CorraField} from "@corratech/checkout/forms/Field";
 import { SelectInputFormik, TextInputFormik } from '@corratech/form-components';
+import { ReturnOrderInfo} from './ReturnOrderInfo';
 
 export const Returns = props => {
     const { orderId } = useParams();
@@ -25,30 +24,8 @@ export const Returns = props => {
     const { addMessage } = useContext(AlertContext);
     const isMobile = windowSize.innerWidth <= 767;
     const LoadingIndicator = useContext(LoaderStore);
-
-    const [orderData, setOrderData] = useState(false);
-
     const [rmaFinal, setRmaFinal] = useState([]);
     const [totalAvailableQty, setTotalAvailableQty] = useState(0);
-
-    const {
-        data: dataCountry,
-        loading: loadingCountry,
-        error: errorCountry
-    } = useQuery(getCountry);
-
-    const { data, loading, error } = useQuery(orderDetails, {
-        fetchPolicy: 'no-cache',
-        variables: {
-            id: orderId
-        }
-    });
-
-    useEffect(() => {
-        if (data) {
-            setOrderData(data.orderDetails)
-        }
-    }, [data]);
 
     const {
         data: dataRmaItems,
@@ -56,28 +33,43 @@ export const Returns = props => {
         error: errorRmaItems
     } = useQuery(getRmaItemsWithAttribute, {
         fetchPolicy: 'no-cache',
-        variables: {
-            orderId: orderId
-        }
+        variables: { orderId: orderId }
     });
 
     useEffect(() => {
         if (dataRmaItems) {
-            const newData = {
+            let total = 0;
+            const returnsData = {
                 rmaAttributes: dataRmaItems.getRmaFormAttributes.attributes,
                 productItems: dataRmaItems.getRmaFormItems.return_items,
                 selectedItem: false,
                 selectedQty: 0,
                 reason: ''
             }
-            setRmaFinal([newData]);
-            let total = 0;
-            newData.productItems.map((value,key) => {
+            setRmaFinal([returnsData]);
+            returnsData.productItems.map((value,key) => {
                 total += Number(value.available_qty);
             })
             setTotalAvailableQty(total);
         }
     }, [dataRmaItems]);
+
+    const validationSchema = yup.object().shape({
+        custom_contact_email: yup
+            .string()
+            .email(t('Email must be a valid email')),
+        products: yup.array()
+            .of(
+                yup.object().shape({
+                    rma_item: yup.string().required('Please select an item'),
+                    item_qty: yup.number().required('Please enter valid quantity'),
+                    item_resolution: yup.string().required('Please select a resolution'),
+                    item_condition: yup.string().required('Please select a condition'),
+                    item_reason: yup.string().required('Please select a reason')
+                })
+            )
+            .required('Must have items')
+    });
 
     const [
         submitReturnItems,
@@ -96,6 +88,7 @@ export const Returns = props => {
                     type: 'danger'
                 });
             }
+            window.scrollTo({ behavior: 'smooth', top: 0 });
         }
     });
 
@@ -113,7 +106,6 @@ export const Returns = props => {
                 });
             }
         });
-
         submitReturnItems({
             variables: {
                 "orderId": orderId,
@@ -122,35 +114,13 @@ export const Returns = props => {
                 "rmaComment": rma_comment.value
             }
         });
-    };
-
-    const validationSchema = yup.object().shape({
-        custom_contact_email: yup
-            .string()
-            .email(t('Email must be a valid email')),
-        products: yup.array()
-            .of(
-                yup.object().shape({
-                    rma_item: yup.string().required('Please select an item'),
-                    item_qty: yup.number().required('Please enter valid quantity'),
-                    item_resolution: yup.string().required('Please select a resolution'),
-                    item_condition: yup.string().required('Please select a condition'),
-                    item_reason: yup.string().required('Please select a reason'),
-                    item_reason_other: yup.string().required('Please enter other reason')
-                })
-            )
-            .required('Must have items')
-    });
+    }
 
     const getRmaItemOptions = (rmaItems) => {
         let items = [];
         items = [
-            {
-                value: '',
-                label: 'Please select an item'
-            }
+            { value: '', label: 'Please select an item'}
         ];
-
         rmaItems.map(rmaItem => {
             items.push({
                 value: rmaItem.order_item_id,
@@ -158,50 +128,31 @@ export const Returns = props => {
             });
         });
         return items;
-    };
+    }
 
     const getRmaAttributeOptions = (rmaAttributes, code) => {
         let attributes = [];
         attributes = [
-            {
-                value: '',
-                label: 'Please select one'
-            }
+            { value: '', label: 'Please select one'}
         ];
-
         rmaAttributes.map(rmaAttribute => {
             attributes.push({
                 value: rmaAttribute.option_id,
                 label: rmaAttribute.option_value
             });
         });
-
         if ('reason' == code) {
-            attributes.push({
-                value: 'other',
-                label: 'Other'
-            });
+            attributes.push({ value: 'other', label: 'Other'});
         }
         return attributes;
-    };
-
-    const addReturnSplit = () => {
-        if (dataRmaItems) {
-            const newData = {
-                rmaAttributes: dataRmaItems.getRmaFormAttributes.attributes,
-                productItems: dataRmaItems.getRmaFormItems.return_items,
-                selectedItem: false,
-                selectedQty: 0,
-                reason: ''
-            }
-            setRmaFinal([...rmaFinal, newData]);
-        }
     }
 
-    const removeReturnSplit = (index) => {
-        let tmpData = rmaFinal;
-        tmpData.splice(index, 1);
-        setRmaFinal(tmpData);
+    const valueOnChange = (index,value,code) => {
+        if ('reason' == code) {
+            let tmpData = rmaFinal;
+            tmpData[index].reason = value;
+            setRmaFinal(tmpData);
+        }
     }
 
     const selectItemChanged = (index,value) => {
@@ -225,8 +176,7 @@ export const Returns = props => {
                     remainingQty -= value.selectedQty;
                 }
             })
-
-            const finalQty = remainingQty >= value ? value : remainingQty;
+            let finalQty = remainingQty >= value ? value : remainingQty;
             tmpData[index].selectedQty = finalQty;
             setRmaFinal(tmpData);
             return finalQty;
@@ -251,15 +201,7 @@ export const Returns = props => {
         return availableQty;
     }
 
-    const valueOnChange = (index,value,code) => {
-        if ('reason' == code) {
-            let tmpData = rmaFinal;
-            tmpData[index].reason = value;
-            setRmaFinal(tmpData);
-        }
-    };
-
-    const isQtyReached = () => {
+    const isMaxQtyReached = () => {
         let total = 0;
         rmaFinal.map((value,key) => {
             if (value.selectedItem != '') {
@@ -269,11 +211,27 @@ export const Returns = props => {
         return total >= totalAvailableQty;
     }
 
-    if (loading || loadingCountry || loadingRmaItems) return <LoadingIndicator />;
+    const addReturnSplit = () => {
+        if (dataRmaItems) {
+            const returnsData = {
+                rmaAttributes: dataRmaItems.getRmaFormAttributes.attributes,
+                productItems: dataRmaItems.getRmaFormItems.return_items,
+                selectedItem: false,
+                selectedQty: 0,
+                reason: ''
+            }
+            setRmaFinal([...rmaFinal, returnsData]);
+        }
+    }
 
-    if (error || errorCountry || errorRmaItems) return `${t('Error: Something went wrong!')}`;
+    const removeReturnSplit = (index) => {
+        let tmpData = rmaFinal;
+        tmpData.splice(index, 1);
+        setRmaFinal(tmpData);
+    }
 
-    console.log('Rma Final', rmaFinal);
+    if (loadingRmaItems) return <LoadingIndicator />;
+    if (errorRmaItems) return `${t('Error: Something went wrong!')}`;
 
     return rmaFinal[0] &&
     rmaFinal[0].productItems.length > 0 ? (
@@ -282,32 +240,7 @@ export const Returns = props => {
                 <h1 className={'my-account__page-title'}>
                     {t('Create New Return')}
                 </h1>
-                <div className={'return-order'}>{t(`New Return for Order # ${orderData.increment_id}`)}</div>
-                <div className="return-order-details">
-                    <div className={'return-order-col'}>
-                        <div className={'return-order-row'}>
-                            <h4>{t('Order ID')}</h4>
-                            <span>{orderData.increment_id}</span>
-                        </div>
-                        <div className={'return-order-row'}>
-                            <h4>{t('Email')}</h4>
-                            <span>{orderData.customer_email}</span>
-                        </div>
-                    </div>
-                    <div className={'return-order-col'}>
-                        <h4>{t('Customer Name')}</h4>
-                        <span>{orderData.customer_name}</span>
-                    </div>
-                </div>
-                <div className="return-order-shipping-address">
-                    <h2 className={'my-account__block-title'}>
-                        {t('Shipping Address')}
-                    </h2>
-                    <OrderAddress
-                        addresses={orderData.shipping}
-                        countries={dataCountry.countries}
-                    />
-                </div>
+                <ReturnOrderInfo orderId={orderId} />
                 <div className="return-order-form-wrapper">
                     <Formik
                         initialValues={{
@@ -318,7 +251,6 @@ export const Returns = props => {
                                 item_condition: '',
                                 item_reason: '',
                                 item_reason_other: '',
-                                show_other_reason: false
                             }]
                         }}
                         onSubmit={handleSubmit}
@@ -394,7 +326,7 @@ export const Returns = props => {
                                                             </CorraField>
 
                                                             {value.rmaAttributes &&
-                                                                value.rmaAttributes.map((attribute, key) => (
+                                                            value.rmaAttributes.map((attribute, key) => (
                                                                 <div>
                                                                     {attribute.type == 'select' && (
                                                                         <CorraField
@@ -462,14 +394,15 @@ export const Returns = props => {
 
                                                 <Button
                                                     onClick={() => {
-                                                            addReturnSplit()
-                                                            push({ rma_item: '', item_qty: '', item_resolution: '', item_condition: '', item_reason: '' })
-                                                        }
+                                                        addReturnSplit()
+                                                        push({ rma_item: '', item_qty: '', item_resolution: '',
+                                                            item_condition: '', item_reason: '' })
+                                                    }
                                                     }
                                                     size="lg"
                                                     variant="secondary"
                                                     title={t(`Add Item`)}
-                                                    disabled={isQtyReached()}
+                                                    disabled={isMaxQtyReached()}
                                                 >
                                                     {t('Add Item To Return')}
                                                 </Button>

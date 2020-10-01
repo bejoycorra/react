@@ -4,8 +4,8 @@ import { useLazyQuery } from 'react-apollo';
 import { useTitle } from 'react-use';
 import { useTranslation } from 'react-i18next';
 import { LoaderStore } from '@corratech/context-provider';
-import { ReturnsList } from '../../MyReturns/ReturnsList'; 
-import { listReturnsByOrder } from '../Queries/listReturnsByOrder.graphql';
+import { ReturnsList } from '../../MyReturns/ReturnsList';
+import { listReturnsByOrder } from '../Queries/Rma/listReturnsByOrder.graphql';
 import { PaginationToolbar } from '../../PaginationToolbar';
 
 export const OrderReturns = props => {
@@ -37,26 +37,19 @@ export const OrderReturns = props => {
     useEffect(() => {
         runQuery({
             variables: {
+                orderId: orderId,
                 pageSize: Number(pageSize),
-                currentPage: Number(currentPage),
-                orderId: orderId
+                currentPage: Number(currentPage)
             }
         });
     }, [runQuery, currentPage, pageSize]);
-
-    /**
-     * Handle error state
-     * set the page to inital value
-     */
+    
     useEffect(() => {
         if (error && !loading && currentPage !== 1) {
             setCurrentPage(1);
         }
     }, [currentPage, error, loading, setCurrentPage]);
-
-    /**
-     * When data gets updated
-     */
+    
     useEffect(() => {
         if (data) {
             const totalCount = data.listReturnsByOrder
@@ -72,6 +65,7 @@ export const OrderReturns = props => {
     if (error) return `${t('Error:')} ${error}`;
 
     const { returns_by_order } = data ? data.listReturnsByOrder : [];
+
     return (
         <div className={props.className} css={props.css}>
             {loading ? (
@@ -79,9 +73,9 @@ export const OrderReturns = props => {
             ) : (
                 <Fragment>
                     <ReturnsList
-                       returnItems={returns_by_order ? returns_by_order : []}
-                       warningIco={warningIco}
-                   />
+                        returnItems={returns_by_order ? returns_by_order : []}
+                        warningIco={warningIco}
+                    />
                 </Fragment>
             )}
             <PaginationToolbar pageControl={pageControl} />
