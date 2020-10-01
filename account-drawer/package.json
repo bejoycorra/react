@@ -1,0 +1,22 @@
+{
+    "name": "@corratech/account-drawer",
+    "version": "1.9.8-dev.2",
+    "license": "UNLICENSED",
+    "description": "",
+    "main": "index.js",
+    "peerDependencies": {
+        "@corratech/context-provider": "^2.6.2",
+        "@corratech/form-components": "^1.3.4",
+        "@corratech/password-field": "^1.8.12",
+        "@corratech/common-styles": "^1.0.2",
+        "@emotion/core": "^10.0.20",
+        "informed": "^2.11.9",
+        "prop-types": "^15.7.2",
+        "react": "16.8.0",
+        "react-dom": "^16.8.0",
+        "react-i18next": "^10.13.1",
+        "react-router-dom": "^5.1.2",
+        "react-apollo": "^3.1.1",
+        "query-string": "^4.1.0"
+    }
+}
