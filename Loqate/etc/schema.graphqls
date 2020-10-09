@@ -1,0 +1,21 @@
+interface ProductInterface {
+    product_attachments: ProductAttachements
+    @doc(description: "Amasty Product attachment file details and list")
+    @resolver(class: "\\Corra\\AmastyProductAttachmentGraphQl\\Model\\Resolver\\AmastyProductAttachments")
+}
+
+type ProductAttachements  @doc(description: "Amasty Product attachment settings and file listing") {
+    is_enabled: Int @doc(description: "Is Amasty Product Attachment Module Enabled")
+    is_show_tab: Int @doc(description: "Show link in PDP")
+    tab_title: String @doc(description: "Label")
+    is_show_icon:Int @doc(description: "Show file icon in PDP")
+    is_show_size:Int @doc(description: "Show file size in PDP")
+    product_attachments_data: [ProductAttachmentsData]
+}
+
+type ProductAttachmentsData @doc(description: "Get ProductAttachments") {
+    icon_url: String @doc(description: "icon URL")
+    file_url: String @doc(description: "File download URL")
+    file_label: String @doc(description: "File label")
+    size: String @doc(description: "Size of file")
+}
