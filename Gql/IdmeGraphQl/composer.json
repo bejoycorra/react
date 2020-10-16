@@ -1,0 +1,25 @@
+{
+    "name": "corra/module-idme-graph-ql",
+    "description": "GraphQl support for ID.me Group validation module",
+    "type": "magento2-module",
+    "authors": [
+        {
+            "name": "CORRA"
+        }
+    ],
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Corra\\IdmeGraphQl\\": ""
+        }
+    },
+    "support": {
+        "wiki": ""
+    }
+}

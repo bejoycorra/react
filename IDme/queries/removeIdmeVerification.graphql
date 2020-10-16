@@ -1,0 +1,83 @@
+mutation($cartId: String!) {
+    removeIdmeVerification(input: { cart_id: $cartId }) {
+        cart {
+            id
+            items {
+                id
+                __typename
+                quantity
+                prices {
+                    price {
+                        value
+                    }
+                    row_total_including_tax {
+                        value
+                        currency
+                    }
+                    row_total {
+                        value
+                        currency
+                    }
+                }
+                product {
+                    id
+                    __typename
+                    name
+                    sku
+                    stock_status
+                    thumbnail {
+                        label
+                        url
+                    }
+                    price {
+                        regularPrice {
+                            amount {
+                                currency
+                                value
+                            }
+                        }
+                    }
+                    special_price
+                    url_key
+                }
+                ... on ConfigurableCartItem {
+                    configurable_options {
+                        id
+                        option_label
+                        value_id
+                        value_label
+                    }
+                }
+            }
+
+            prices {
+                grand_total {
+                    value
+                    currency
+                }
+                applied_taxes {
+                    label
+                    amount {
+                        value
+                        currency
+                    }
+                }
+                subtotal_including_tax {
+                    value
+                    currency
+                }
+                subtotal_excluding_tax {
+                    value
+                    currency
+                }
+                subtotal_with_discount_excluding_tax {
+                    value
+                    currency
+                }
+            }
+            applied_coupons {
+                code
+            }
+        }
+    }
+}

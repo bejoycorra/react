@@ -1,0 +1,15 @@
+query getIdmeData($cartId: String!) {
+    cart(cart_id: $cartId) {
+        id
+		idme_data(cart_id: $cartId){
+			verified
+			verifiedGroup
+			policies{
+                popup_url
+                name
+                img_src
+            }
+			aboutText
+		}
+    }
+}

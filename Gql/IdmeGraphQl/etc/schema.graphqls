@@ -1,0 +1,35 @@
+type Cart {
+    idme_data(cart_id: String!): [IdmeData]
+    @doc(description: "Id.me policies and verified group")
+    @resolver(class: "\\Corra\\IdmeGraphQl\\Model\\Resolver\\IdmePolicies")
+}
+
+type Mutation {
+    verifyIdme(input: VerifyIdmeInput): VerifyIdmeOutput @resolver(class: "\\Corra\\IdmeGraphQl\\Model\\Resolver\\VerifyIdme")
+ }
+
+input VerifyIdmeInput {
+    cart_id: String!
+    idme_code: String
+}
+
+type VerifyIdmeOutput {
+    cart: Cart
+}
+type IdmeData @doc(description: "Id.me policies and verified group") {
+    clientId: String @doc(description: "Id.me client id")
+    verified: Boolean @doc(description: "Id.me group verified or not")
+    verifiedGroup: String @doc(description: "Id.me verified group")
+    policies: [Policies]
+    aboutText: String @doc(description: "Id.me about text")
+    removeUrl:  String @doc(description: "Id.me Remove URL")
+    redirectUri:  String @doc(description: "Id.me Redirect URL")
+    startUrl:  String @doc(description: "Id.me Start URL")
+    website_id:  String @doc(description: "Id.me Website ID")
+}
+
+type Policies @doc(description: "Id.me policies Array") {
+popup_url: String @doc(description: "Id.me Policy popup url")
+name: String @doc(description: "Id.me Policy name")
+img_src: String @doc(description: "Id.me Policy image source")
+}
