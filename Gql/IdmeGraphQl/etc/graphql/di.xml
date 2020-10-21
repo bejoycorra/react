@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+     <preference for="IDme\GroupVerification\Model\Rule\Condition\IDmeRules" type="Corra\IdmeGraphQl\Model\Rule\Condition\IDmeRules" />
+     <preference for="IDme\GroupVerification\Model\Rule\Condition\IDmeSubgroupRules" type="Corra\IdmeGraphQl\Model\Rule\Condition\IDmeSubgroupRules" />
+    <type name="Magento\StoreGraphQl\Model\Resolver\Store\StoreConfigDataProvider">
+        <arguments>
+            <argument name="extendedConfigData" xsi:type="array">
+                <item name="idme_enabled" xsi:type="string">idme/settings/enabled</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

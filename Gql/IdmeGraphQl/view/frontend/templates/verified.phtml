@@ -1,0 +1,8 @@
+<?php
+ $data = $this->getRequest()->getParams();
+?>
+<script>
+    var parent = window.opener;
+    parent.postMessage({'idmeCode':'<?php echo $data['code']?>'}, '*');
+    window.close();
+</script>

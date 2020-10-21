@@ -1,3 +1,6 @@
+type StoreConfig @doc(description: "The type contains information about a store config.") {
+    idme_enabled : String @doc(description: "Check Id.me Enabled ")
+}
 type Cart {
     cart_id: String!
     idme_data(cart_id: String!): [IdmeData]
