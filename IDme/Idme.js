@@ -1,60 +1,26 @@
 import React, { useContext, useEffect, useState, Fragment } from 'react';
-import { bool, object, string, func } from 'prop-types';
+import PropTypes, { bool, object, string, func } from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { CartStore, LoaderStore } from '@corratech/context-provider';
 import { useLazyQuery, useMutation } from 'react-apollo';
-import CartPage from '@corratech/cart/src/CartPage/CartPage';
 import Policies from 'ModulesPath/IDme/Policies';
 import Info from 'ModulesPath/IDme/Info';
 import getIdmeQuery from './queries/getIdmeQuery.graphql';
 import removeIdmeGraphql from './queries/removeIdmeVerification.graphql';
 import verifyIdmeGraphql from './queries/verifyIdme.graphql';
-export const IDme = props => {
-    /* const {
+import {useWindowSize} from "@magento/peregrine";
+import {Contact} from "@corratech/contact/src/Contact";
 
-    } = props;
-*/
+export const IDme = props => {
+
     const [showInfo, setShowInfo] = useState(false);
     const [t] = useTranslation();
     const { cartState, dispatch } = useContext(CartStore);
     const LoadingIndicator = useContext(LoaderStore);
-    const lock_icon = "https://s3.amazonaws.com/idme/assets/lock.png";
+    const windowSize = useWindowSize();
     const [isVerified, setisVerified] = useState(false);
-   /* let idme_data = {
-        clientId: '2323232',
-        verified: true,
-        verifiedGroup: 'Nurse',
-        lock_icon: 'https://s3.amazonaws.com/idme/assets/lock.png',
-        aboutText: 'What is Id.me?',
-        infoText:
-            'ID.me is an easy way to get verified for out Frontline 5% discount. Once you sign up you will save 5% on every purchase.'
-    };
-    let policies = [
-        {
-            img_src: 'https://s3.amazonaws.com/idme/buttons/v3/equal/troop.png',
-            name: 'Military',
-            popup_url:
-                'https://api.id.me/oauth/authorize?client_id=aad384a0d7c0996fe1c7d8f396ed78cf&redirect_uri=https://mcstaging.superatv.com/idme/authorize/verify/&response_type=code&scope=military&display=popup'
-        },
-        {
-            img_src: 'https://s3.amazonaws.com/idme/buttons/v3/equal/nurse.png',
-            name: 'Nurse',
-            popup_url:
-                'https://api.id.me/oauth/authorize?client_id=aad384a0d7c0996fe1c7d8f396ed78cf&redirect_uri=https://mcstaging.superatv.com/idme/authorize/verify/&response_type=code&scope=nurse&display=popup'
-        },
-        {
-            img_src:
-                'https://s3.amazonaws.com/idme/buttons/v3/equal/responder.png',
-            name: 'Responder',
-            popup_url:
-                'https://api.id.me/oauth/authorize?client_id=aad384a0d7c0996fe1c7d8f396ed78cf&redirect_uri=https://mcstaging.superatv.com/idme/authorize/verify/&response_type=code&scope=responder&display=popup'
-        }
-    ];
-    idme_data.policies = policies;
-   // cartState.idme_data = idme_data;
-*/
 
-    const [getIdmeData, { loading }] = useLazyQuery(getIdmeQuery, {
+    const [getIdmeData] = useLazyQuery(getIdmeQuery, {
         fetchPolicy: 'no-cache',
         onCompleted: res => {
             if (res.cart) {
@@ -63,7 +29,7 @@ export const IDme = props => {
                     cart: res.cart
                 });
             }
-            debugger
+
         }
     });
 
@@ -78,13 +44,13 @@ export const IDme = props => {
             }
         }
     });
-    const [verifyIdmeGroup] = useMutation(verifyIdmeGraphql, {
+    const [verifyIdmeGroup, { loading }] = useMutation(verifyIdmeGraphql, {
         fetchPolicy: 'no-cache',
         onCompleted: res => {
-            if (res.cart) {
+            if (res.verifyIdme.cart) {
                 dispatch({
                     type: 'SET_CART',
-                    cart: res.cart
+                    cart: res.verifyIdme.cart
                 });
             }
         }
@@ -112,47 +78,51 @@ export const IDme = props => {
             */
         }
         setisVerified(false);
-
-        console.log('Remove-2' + isVerified);
     };
     const verifyIdme = props => {
-        setisVerified(true);
-
+        //setisVerified(true);
+        const top = (windowSize.innerHeight - 780) / 4;
+        const left = (windowSize.innerWidth - 750) / 2;
         window.open(
-            props.popup_url,
-            'idme',
-            'toolbar=0,status=0,width=548,height=325'
+            props.popup_url+"&display=popup",
+            '',
+            "scrollbars=yes,menubar=no,status=no,location=no,toolbar=no,width=750,height=780,top=" + top + ",left=" + left
         );
 
-        window.addEventListener('message', function(e) {
-            receiveIdmeCode(e.data);
-        } , {once:true});
+        if(!window.isListenerSet) {
+            window.addEventListener('message', function (e) {
+                var key = e.message ? 'message' : 'data';
+                var data = e[key];
+                if(typeof data.idmeCode === 'string') {
+                    receiveIdmeCode(data.idmeCode);
+                }
+            }, true);
 
-        function receiveIdmeCode(message) {
-            console.log("message--" + message);
-            if (typeof message === 'string') {
+            function receiveIdmeCode(message) {
+                console.log("message-144-->" + JSON.stringify(message));
+                if (typeof message === 'string') {
 
-                verifyIdmeGroup({
-                    variables: {
-                        cartId: cartState.cartId,
-                        idmeCode: message
-                    }
-                })
+                    verifyIdmeGroup({
+                        variables: {
+                            cartId: cartState.cartId,
+                            idmeCode: message
+                        }
+                    })
+                }
             }
         }
+        window.isListenerSet = true;
     };
 
-    //const [policies, setPolicies] = useState([]);
-    let idmeData ='';
+    let idmeData = '';
     let infoText;
     let verifiedGroup;
-    //let isVerified;
-    let policies;
+    let policies = [];
 
     useEffect(() => {
         (async () => {
         if (cartState.cartId !== '') {
-           await  getIdmeData({
+             getIdmeData({
                 variables: {
                     cartId: cartState.cartId,
                     isSignedIn: !!cartState.cart.authenticated
@@ -164,24 +134,25 @@ export const IDme = props => {
         }, [cartState.cartId]);
 
     useEffect(() => {
-        if (!isVerified) {
-            setisVerified(idmeData.verified);
+        if (!isVerified && !!cartState.cart.idme_data) {
+            setisVerified(cartState.cart.idme_data[0].verified);
         }
-    }, [isVerified]);
+    }, [cartState]);
 
-    if (!cartState.cart.idme_data) return <LoadingIndicator />;
+    if (!cartState.cart.idme_data || loading) return <LoadingIndicator />;
+
     if(idmeData =='' || !idmeData) {
-        console.log(cartState.cart.idme_data[0]);
          idmeData = cartState.cart.idme_data[0];
-         infoText = cartState.cart.idme_data[0].aboutText;
+         infoText = idmeData.aboutText;
          verifiedGroup = idmeData.verifiedGroup;
-         policies =cartState.cart.idme_data[0].policies;
+         policies = idmeData.policies;
     }
+
     return (
         <div>
             {isVerified && (
                 <div>
-                    You have completed{' '}
+                    {t(props.verifyCompletedLabel)}{' '}
                     <span>
                         <b>{verifiedGroup}</b>
                     </span>
@@ -202,15 +173,15 @@ export const IDme = props => {
             <div>
                 <div>
                     <span>
-                        {lock_icon &&
+                        {props.lockIconSrc &&
                             <img
-                                src={lock_icon}
+                                src={props.lockIconSrc}
                                 style={{padding: 5}}
                             />
                         }
                     </span>
                     <span style={{ fontSize: 13 }}>
-                        {t('Verification by ID.me')}
+                        {t(props.verificationByLabel)}
                     </span>
                     <span style={{ fontSize: 13 }}>
                         {' '}
@@ -219,7 +190,7 @@ export const IDme = props => {
                             href="#"
                             style={{ fontSize: 13 }}
                         >
-                            {t('What is ID.me?')}
+                            {t(props.whatisIDText)}
                         </a>
                     </span>
                     {isVerified && (
@@ -229,10 +200,10 @@ export const IDme = props => {
                             <a
                                 onClick={removeVerification}
                                 href="#"
-                                title={t('Remove your verified affiliation')}
+                                title={t(props.removeTitleText)}
                                 style={{ fontSize: 13 }}
                             >
-                                Remove
+                                {t(props.removeLabel)}
                             </a>
                         </span>
                     )}
@@ -249,4 +220,20 @@ export const IDme = props => {
     );
 };
 
-export default IDme;
+IDme.propTypes = {
+    removeTitleText: PropTypes.string,
+    whatisIDText: PropTypes.string,
+    removeLabel: PropTypes.string,
+    verificationByLabel: PropTypes.string,
+    lockIconSrc: PropTypes.string,
+    verifyCompletedLabel: PropTypes.string,
+};
+
+IDme.defaultProps = {
+    removeTitleText: 'Remove your verified affiliation',
+    whatisIDText: 'What is ID.me?',
+    removeLabel: 'Remove',
+    verificationByLabel: 'Verification by ID.me',
+    lockIconSrc: 'https://s3.amazonaws.com/idme/assets/lock.png',
+    verifyCompletedLabel: 'You have completed'
+};

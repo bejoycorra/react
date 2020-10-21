@@ -5,11 +5,105 @@ mutation verifyIdme($cartId: String!, $idmeCode: String!) {
             idme_code: $idmeCode
         }
     ) {
-        cart {
-            selected_payment_method {
-                code
-                title
-            }
-        }
+        	cart{
+        	idme_data(cart_id: $cartId){
+        			verified
+        			verifiedGroup
+        			policies{
+                        popup_url
+                        name
+                        img_src
+                    }
+        			aboutText
+        		}
+        		        id
+                        items {
+                            id
+                            product {
+                                id
+                                name
+                                sku
+                                stock_status
+                                thumbnail {
+                                    label
+                                    url
+                                }
+
+                                price {
+                                    regularPrice {
+                                        amount {
+                                            currency
+                                            value
+                                        }
+                                    }
+                                }
+                                special_price
+                                url_key
+                            }
+                            ... on ConfigurableCartItem {
+                                configurable_options {
+                                    id
+                                    option_label
+                                    value_id
+                                    value_label
+                                }
+                            }
+                            prices {
+                                price {
+                                    value
+                                }
+                                row_total_including_tax {
+                                    value
+                                    currency
+                                }
+                                row_total {
+                                    value
+                                    currency
+                                }
+                            }
+                            quantity
+                        }
+                        prices {
+                            grand_total {
+                                value
+                                currency
+                            }
+                            applied_taxes {
+                                label
+                                amount {
+                                    value
+                                    currency
+                                }
+                            }
+                            subtotal_including_tax {
+                                value
+                                currency
+                            }
+                            subtotal_excluding_tax {
+                                value
+                                currency
+                            }
+                            subtotal_with_discount_excluding_tax {
+                                value
+                                currency
+                            }
+                        }
+
+                        applied_gift_cards {
+                            applied_balance {
+                                value
+                                currency
+                            }
+                            code
+                            current_balance {
+                                value
+                                currency
+                            }
+                            expiration_date
+                        }
+                        applied_coupons {
+                            code
+                        }
+        		}
     }
 }

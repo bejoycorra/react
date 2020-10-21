@@ -17,8 +17,6 @@ export const Policies = props => {
                     >
                         <a
                             onClick={() => verifyIdmeButton(policy)}
-                            //href={policy.popup_url}
-                            target={'_blank'}
                         >
                             <img
                                 style={{ height: 30 }}

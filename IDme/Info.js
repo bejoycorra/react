@@ -3,7 +3,6 @@ import { Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import projectConfig from 'UtilPath/getProjectConfigs';
 import { useWindowSize } from '@magento/peregrine';
-import Policies from 'ModulesPath/IDme/Policies';
 
 export const Info = props => {
     const { infoText, show, setShow } = props;
@@ -13,7 +12,6 @@ export const Info = props => {
     const isMobile = windowSize.innerWidth <= projectConfig.viewport.mobile;
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
     return (
         <Modal show={show} onHide={handleClose} className={'idme-modal'}>
             <Modal.Header closeButton>

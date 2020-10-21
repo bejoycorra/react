@@ -53,7 +53,7 @@ class IdmePolicies implements ResolverInterface
     }
 
     /**
-     * @inheritDocvv   hhhhhhhhhhhhghhhhb
+     * @inheritDoc
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
@@ -75,7 +75,7 @@ class IdmePolicies implements ResolverInterface
         $idmeData = [
             'clientId' => $this->idmedata->getKey('client_id'),
             'verified' => $this->getIsVerified(),
-            'verifiedGroup' => $this->getUserGroup(),
+            'verifiedGroup' => $this->getUserGroup()?ucfirst($this->getUserGroup()):"",
             'policies' => $policies,
             'aboutText' => $this->idmedata->getKey('about'),
         ];
